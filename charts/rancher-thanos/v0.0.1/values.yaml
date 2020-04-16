@@ -54,7 +54,7 @@ grafana:
 
 thanos:
   image:
-    repository: thanosio/thanos
+    repository: rancher/thanos
     tag: v0.9.0
     pullPolicy: IfNotPresent
     proxy:
