@@ -825,7 +825,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(apiserver_request_latencies_sum{instance=~\"$top10filter$top_apiserver_latency_instance_id\"} / apiserver_request_latencies_count{instance=~\"$top10filter$top_apiserver_latency_instance_id\"}) by (instance, prometheus_from) /1e+06",
+          "expr": "sum(apiserver_request_duration_seconds_sum{verb!=\"WATCH\",instance=~\"$top10filter$top_apiserver_latency_instance_id\"}) by (instance,prometheus_from)/ sum(apiserver_request_duration_seconds_count{verb!=\"WATCH\",instance=~\"$top10filter$top_apiserver_latency_instance_id\"}) by (instance,prometheus_from) * 1000",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{prometheus_from}}/{{instance}}",
@@ -2300,14 +2300,14 @@
           ]
         },
         "datasource": "RANCHER_MONITORING",
-        "definition": "query_result(topk(10, max_over_time((avg(apiserver_request_latencies_sum / apiserver_request_latencies_count) by (instance, prometheus_from) /1e+06)[${__range_s}s:])))",
+        "definition": "query_result(topk(10, max_over_time((sum(apiserver_request_duration_seconds_sum{verb!=\"WATCH\"}) by (instance,prometheus_from)/ sum(apiserver_request_duration_seconds_count{verb!=\"WATCH\"}) by (instance,prometheus_from))[${__range_s}s:])))",
         "hide": 2,
         "includeAll": true,
         "label": null,
         "multi": true,
         "name": "top_apiserver_latency_instance_id",
         "options": [],
-        "query": "query_result(topk(10, max_over_time((avg(apiserver_request_latencies_sum / apiserver_request_latencies_count) by (instance, prometheus_from) /1e+06)[${__range_s}s:])))",
+        "query": "query_result(topk(10, max_over_time((sum(apiserver_request_duration_seconds_sum{verb!=\"WATCH\"}) by (instance,prometheus_from)/ sum(apiserver_request_duration_seconds_count{verb!=\"WATCH\"}) by (instance,prometheus_from))[${__range_s}s:])))",
         "refresh": 2,
         "regex": ".*instance=\"(.*?)\".*",
         "skipUrlSync": false,
