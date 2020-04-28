@@ -10,6 +10,8 @@ rancherHost: ""
 token: ""
 apiToken: ""
 
+
+grpcProxyUrl: ""
 privateCa: false
 
 
