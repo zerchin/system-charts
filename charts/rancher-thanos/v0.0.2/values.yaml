@@ -124,7 +124,7 @@ ui:
   replicaCount: 1
   image:
     repository: cnrancher/global-monitoring-ui
-    tag: 0.0.3
+    tag: 0.0.4
     pullPolicy: IfNotPresent
   resources:
     limits:
@@ -136,6 +136,10 @@ ui:
   affinity: {}
   nodeSelector: {}
   tolerations: []
+  title: ""
+  tabTitle: ""
+  favicon: ""
+  logo: ""
   service:
     type: ClusterIP
     port: 80

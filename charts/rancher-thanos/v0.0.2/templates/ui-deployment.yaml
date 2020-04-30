@@ -37,6 +37,22 @@ spec:
             value: "https://{{ .Values.rancherHost }}"
           - name: THANOS_URL
             value: "http://access-thanos"
+  {{- if .Values.ui.title }}
+          - name: CUSTOM_RANCHER_TITLE
+            value: {{ .Values.ui.title }}
+  {{- end }}
+  {{- if .Values.ui.tabTitle }}
+          - name: CUSTOM_RANCHER_TAB_TITLE
+            value: {{ .Values.ui.tabTitle }}
+  {{- end }}
+  {{- if .Values.ui.favicon }}
+          - name: CUSTOM_RANCHER_FAVICON
+            value: {{ .Values.ui.favicon }}
+  {{- end }}
+  {{- if .Values.ui.logo }}
+          - name: CUSTOM_RANCHER_LOGO
+            value: {{ .Values.ui.logo }}
+  {{- end }}
           ports:
             - name: http
               containerPort: 80
