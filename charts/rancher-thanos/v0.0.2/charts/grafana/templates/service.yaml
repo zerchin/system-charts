@@ -18,3 +18,6 @@ spec:
     - port: {{ .Values.service.port }}
       name: http
       targetPort: http
+      {{- if (eq .Values.service.type "ClusterIP") }}
+      nodePort: null
+      {{- end }}
