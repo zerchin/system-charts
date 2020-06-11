@@ -18,6 +18,8 @@ spec:
       component: query
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/proxy-configmap.yaml") . | sha256sum }}
       labels:
         app: {{ template "app.fullname" . }}
         chart: {{ .Chart.Name }}
