@@ -134,11 +134,8 @@ spec:
 {{- if .Values.enabledRBAC }}
   serviceAccountName: {{ default (default (include "app.fullname" .) .Values.serviceAccountName) .Values.serviceAccountNameOverride }}
 {{- end }}
-{{- if .Values.serviceMonitorNamespaceSelector }}
-  serviceMonitorNamespaceSelector:
-{{ toYaml .Values.serviceMonitorNamespaceSelector | indent 4 }}
-{{- end }}
-{{- if .Values.serviceMonitorSelector }}
+{{ include "serviceMonitor.namespace.selector" . | indent 2 }}
+{{- if or (.Values.serviceMonitorSelector) (eq .Values.level "project") }}
   serviceMonitorSelector:
 {{ toYaml .Values.serviceMonitorSelector | indent 4 }}
 {{- end }}
@@ -150,14 +147,8 @@ spec:
   remoteWrite:
 {{ toYaml .Values.remoteWrite | indent 4 }}
 {{- end }}
-{{- if .Values.ruleNamespaceSelector }}
-  ruleNamespaceSelector:
-{{ toYaml .Values.ruleNamespaceSelector | indent 4 }}
-{{- end }}
-{{- if .Values.ruleSelector }}
-  ruleSelector:
-{{ toYaml .Values.ruleSelector | indent 4 }}
-{{- end }}
+{{ include "rule.namespace.selector" . | indent 2}}
+{{ include "rule.selector" . | indent 2 }}
 {{- if or .Values.storageSpec .Values.persistence.enabled }}
   storage:
     volumeClaimTemplate:
