@@ -20,8 +20,8 @@ data:
     fi
 
     mkdir -p /var/cache/nginx/cache
-
-    sed "s/REPLACE_PARAM_IP/${POD_IP}/g" $srcpath > $dstpath
+    token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+    sed "s/REPLACE_PARAM_AUTHORIZATION/Bearer ${token}/g" $srcpath | sed "s/REPLACE_PARAM_IP/${POD_IP}/g" > $dstpath
     
     exec nginx -g "daemon off;" -c /var/cache/nginx/nginx.conf
 
